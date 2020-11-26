@@ -1,24 +1,61 @@
-# README
+## Users Table
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+|Column|Type|Options|
+|------|----|-------|
+|user_name|string|null:false|
+|email |string|unique:true|
+|encrypted_password|string|null:false|
+|first_name|string|null:false|
+|last_name|string|null:false|
+|first_katakana|string|null:false|
+|last_katakana|string|null:false|
+|birthday|date|null:false|
 
-Things you may want to cover:
+### Association
+- has_many : product
+- has_many :purchase
 
-* Ruby version
+## products Table
 
-* System dependencies
+|Column|Type|Options|
+|------|----|-------|
+|product_name|string|null:false|
+|product_explanation|text|null:false|
+|category_id|integer|null:false|
+|commodity_id|integer|null:false|
+|burden_delivery_id|integer|null:false|
+|event_region_id|integer|null:false|
+|dispatch_nichiji_id|integer|null:false|
+|price|integer|null:false|
 
-* Configuration
+### Association
+- belongs_to : user
+- has_one : purchaser
 
-* Database creation
+## Address Table
 
-* Database initialization
+|Column|Type|Options|
+|------|----|-------|
+|mail_number|string|null:false|
+|prefectures_id|string|null:false|
+|ichiku_machi|string|null:false|
+|numbering|integer|null:false|
+|building_name|string|
+|telephone_number|string|null:false|
+|purchase|references|null: false, foreign_key: true|
 
-* How to run the test suite
+### Association
+- belongs_to : purchase
 
-* Services (job queues, cache servers, search engines, etc.)
+## Purchase Table
 
-* Deployment instructions
+|Column|Type|Options|
+|------|----|-------|
+|products|references|null: false, foreign_key: true|
+|user|references|null: false, foreign_key: true|
 
-* ...
+
+### Association
+- belongs_to : product
+- belongs_to : user
+- has_one : address
