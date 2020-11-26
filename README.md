@@ -20,9 +20,13 @@
 |Column|Type|Options|
 |------|----|-------|
 |product_name|string|null:false|
+|product_explanation|text|null:false|
 |category_id|integer|null:false|
-|product_explanation|null:false|
-|about_delivery|string|null:false|
+|commodity_id|integer|null:false|
+|about_delivery_id|integer|null:false|
+|burden_delivery_id|integer|null:false|
+|event_region_id|integer|null:false|
+|dispatch_nichiji_id|integer|null:false|
 |price|integer|null:false|
 
 ### Association
@@ -38,7 +42,7 @@
 |ichiku_machi|string|null:false|
 |numbering|integer|null:false|
 |building_name|string|
-|telephone_number|integer|null:false|
+|telephone_number|string|null:false|
 |purchase|references|null: false, foreign_key: true|
 
 ### Association
