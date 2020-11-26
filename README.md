@@ -23,7 +23,6 @@
 |product_explanation|text|null:false|
 |category_id|integer|null:false|
 |commodity_id|integer|null:false|
-|about_delivery_id|integer|null:false|
 |burden_delivery_id|integer|null:false|
 |event_region_id|integer|null:false|
 |dispatch_nichiji_id|integer|null:false|
@@ -37,8 +36,8 @@
 
 |Column|Type|Options|
 |------|----|-------|
-|mail_number|integer|null:false|
-|prefectures|string|null:false|
+|mail_number|string|null:false|
+|prefectures_id|string|null:false|
 |ichiku_machi|string|null:false|
 |numbering|integer|null:false|
 |building_name|string|
@@ -52,7 +51,7 @@
 
 |Column|Type|Options|
 |------|----|-------|
-|products_id|references|null: false, foreign_key: true|
+|products|references|null: false, foreign_key: true|
 |user|references|null: false, foreign_key: true|
 
 
