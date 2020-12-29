@@ -61,15 +61,17 @@ describe User do
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
-      it 'passwordが英字と数字の両方を含めないと登録できない' do
+      it 'passwordとpassword_confirmationが英字と数字の両方を含めないと登録できない' do
         @user.password = '1234567'
+        @user.password_confirmation = '1234567'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password is invalid")
       end
-      it 'passwordが英字と数字の両方を含めないと登録できない' do
+      it 'passwordとpassword_confirmationが英字と数字の両方を含めないと登録できない' do
         @user.password = 'aaaaaaa'
+        @user.password_confirmation = 'aaaaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password is invalid")
       end
       it 'first_nameが空では登録できない' do
         @user.first_name = ''
