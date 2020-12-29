@@ -29,6 +29,11 @@ describe User do
         another_user.valid?
         expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
+      it 'emailに「@」を含めなければ登録できない' do
+        @user.email = 'hoge.com'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
+      end
       it 'passwordが空では登録できない' do
         @user.password = ''
         @user.valid?
@@ -39,6 +44,11 @@ describe User do
         @user.password_confirmation = '00000'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+      end
+      it 'passwordが全角であれば登録できない' do
+        @user.password = '００００００'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
       it 'passwordが存在してもpassword_confirmationが空では登録できない' do
         @user.password_confirmation = ''
