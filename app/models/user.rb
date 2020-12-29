@@ -6,7 +6,8 @@ class User < ApplicationRecord
 
   with_options presence: true do
     validates :user_name
-    validates :password, format: { with: /\A[a-zA-Z0-9]+\z/, message: 'は半角英数混合で入力してください。' }
+    VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
+    validates :password, format: { with: VALID_PASSWORD_REGEX }
     validates :first_name, format: { with: /\A[ぁ-んァ-ン一-龥]/, message: 'は全角で入力してください。' }
     validates :last_name, format: { with: /\A[ぁ-んァ-ン一-龥]/, message: 'は全角で入力してください。' }
     validates :first_katakana, format: { with: /\A[ァ-ヶー－]+\z/, message: 'は全角で入力してください。' }

@@ -28,7 +28,6 @@ describe User do
         expect(@user.errors.full_messages).to include("Email can't be blank")
       end
       it '重複したemailが存在する場合登録できない' do
-        binding.pry
         @user.save
         another_user = FactoryBot.build(:user)
         another_user.email = @user.email
@@ -59,6 +58,7 @@ describe User do
       end
       it 'passwordが英字と数字の両方を含めないと登録できない' do
         @user.password = '1234567'
+        @user.password = 'aaaaaaa'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
