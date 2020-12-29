@@ -9,11 +9,6 @@ describe User do
       it '全項目が存在すれば登録できる' do
         expect(@user).to be_valid
       end
-      it 'passwordが6文字以上であれば登録できる' do
-        @user.password = '000000'
-        @user.password_confirmation = '000000'
-        expect(@user).to be_valid
-      end
     end
 
     context '新規登録がうまくいかないとき' do
@@ -58,6 +53,10 @@ describe User do
       end
       it 'passwordが英字と数字の両方を含めないと登録できない' do
         @user.password = '1234567'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      end
+      it 'passwordが英字と数字の両方を含めないと登録できない' do
         @user.password = 'aaaaaaa'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
