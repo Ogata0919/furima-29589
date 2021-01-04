@@ -3,22 +3,31 @@ class Product < ApplicationRecord
     belongs_to :user
     has_one :purchaser
 
-    validates :
+    extend ActiveHash::Associations::ActiveRecordExtensions
+    belongs_to :category
+    belongs_to :commodity
+    belongs_to :bulden_delivery
+    belongs_to :event_region
+    belongs_to :dispatch_nichiji
 
+    validates :category_id, numericality: { other_than: 1 } 
+    validates :commodity_id, numericality: { other_than: 1 } 
+    validates :bulden_delivery_id, numericality: { other_than: 1 } 
+    validates :event_region_id, numericality: { other_than: 1 } 
+    validates :dispatch_nichiji_id, numericality: { other_than: 1 } 
+
+
+    with_options presence: true do
+      validates :Product_name
+      validates :Product_explanation
+      validates :category_id
+      validates :commodity_id
+      validates :burden_delivery_id
+      validates :event_region_id
+      validates :dispatch_nichiji_id
+    end
+    VALID_PRICEL_HALF = /\A[0-9]+\z/
+      validates :price, presence: true, format: {with: VALID_PRICEL_HALF},length: {minimum: 3, maxinum: 7},numericality: { only_integer: true,
+        greater_than: 300, less_than: 10000000
+    }
 end
-
-
-ログインしているユーザーだけが、出品ページへ遷移できること
-画像は1枚必須であること(ActiveStorageを使用すること)
-商品名が必須であること
-商品の説明が必須であること
-カテゴリーの情報が必須であること
-商品の状態についての情報が必須であること
-配送料の負担についての情報が必須であること
-発送元の地域についての情報が必須であること
-発送までの日数についての情報が必須であること
-価格についての情報が必須であること
-価格の範囲が、¥300~¥9,999,999の間であること
-販売価格は半角数字のみ保存可能であること
-入力された販売価格によって、非同期的に販売手数料や販売利益が変わること(JavaScriptを使用して実装すること)
-エラーハンドリングができていること（適切では無い値が入力された場合、情報は保存されず、エラーメッセージを出力させる）
