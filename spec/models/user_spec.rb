@@ -32,7 +32,7 @@ describe User do
       it 'emailに「@」を含めなければ登録できない' do
         @user.email = 'hoge.com'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email is invalid")
+        expect(@user.errors.full_messages).to include('Email is invalid')
       end
       it 'passwordが空では登録できない' do
         @user.password = ''
@@ -65,13 +65,13 @@ describe User do
         @user.password = '1234567'
         @user.password_confirmation = '1234567'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it 'passwordとpassword_confirmationが英字と数字の両方を含めないと登録できない' do
         @user.password = 'aaaaaaa'
         @user.password_confirmation = 'aaaaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it 'first_nameが空では登録できない' do
         @user.first_name = ''

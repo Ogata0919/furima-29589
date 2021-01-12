@@ -1,27 +1,25 @@
 class ProductsController < ApplicationController
-    before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, except: :index
 
-    def index
+  def index
+  end
 
-    end    
-    
-    def new
-        @product = Product.new
-    end    
+  def new
+    @product = Product.new
+  end
 
-    def create
-        @product = Product.new(product_params)
-        if @product.save
-          redirect_to root_path
-        else
-          render :new
-        end
+  def create
+    @product = Product.new(product_params)
+    if @product.save
+      redirect_to root_path
+    else
+      render :new
     end
-    
-    private
+  end
 
-    def product_params
-      params.require(:product).permit(:category_id, :commodity_id, :dispatch_nichiji_id, :burden_delivery_id, :event_region_id)
-    end
-  
+  private
+
+  def product_params
+    params.require(:product).permit(:category_id, :commodity_id, :dispatch_nichiji_id, :burden_delivery_id, :event_region_id)
+  end
 end
