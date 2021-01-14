@@ -10,11 +10,13 @@ class Product < ApplicationRecord
   belongs_to :event_region
   belongs_to :dispatch_nichiji
 
-  validates :category_id, numericality: { other_than: 1 }
-  validates :commodity_id, numericality: { other_than: 1 }
-  validates :burden_delivery_id, numericality: { other_than: 1 }
-  validates :event_region_id, numericality: { other_than: 1 }
-  validates :dispatch_nichiji_id, numericality: { other_than: 1 }
+  with_options numericality: { other_than: 1 } do
+   validates :category_id
+   validates :commodity_id
+   validates :burden_delivery_id
+   validates :event_region_id
+   validates :dispatch_nichiji_id
+  end 
 
   with_options presence: true do
     validates :product_name

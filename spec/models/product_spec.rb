@@ -30,34 +30,64 @@ describe do
         expect(@product.errors.full_messages).to include("Product explanation can't be blank")
       end
 
-      it 'カテゴリーの情報が空であれば出品できない' do
+      it 'カテゴリーの情報が"---"であれば出品できない' do
         @product.category_id = '1'
         @product.valid?
         expect(@product.errors.full_messages).to include('Category must be other than 1')
       end
 
-      it '商品の状態についての情報が空であれば出品できない' do
+      it 'カテゴリーの情報が空であれば出品できない' do
+        @product.category_id = ''
+        @product.valid?
+        expect(@product.errors.full_messages).to include('Category is not a number')
+      end
+
+      it '商品の状態についての情報が"---"であれば出品できない' do
         @product.commodity_id = '1'
         @product.valid?
         expect(@product.errors.full_messages).to include('Commodity must be other than 1')
       end
 
-      it '配送料の負担についての情報が空であれば出品できない' do
+      it '商品の状態についての情報が空であれば出品できない' do
+        @product.commodity_id = ''
+        @product.valid?
+        expect(@product.errors.full_messages).to include('Commodity is not a number')
+      end
+
+      it '配送料の負担についての情報が"---"であれば出品できない' do
         @product.burden_delivery_id = '1'
         @product.valid?
         expect(@product.errors.full_messages).to include('Burden delivery must be other than 1')
       end
 
-      it '発送元の地域についての情報が空であれば出品できない' do
+      it '配送料の負担についての情報が空であれば出品できない' do
+        @product.burden_delivery_id = ''
+        @product.valid?
+        expect(@product.errors.full_messages).to include('Burden delivery is not a number')
+      end
+
+      it '発送元の地域についての情報が"---"であれば出品できない' do
         @product.event_region_id = '1'
         @product.valid?
         expect(@product.errors.full_messages).to include('Event region must be other than 1')
       end
 
-      it '発送までの日数についての情報が空であれば出品できない' do
+      it '発送元の地域についての情報が空であれば出品できない' do
+        @product.event_region_id = ''
+        @product.valid?
+        expect(@product.errors.full_messages).to include('Event region is not a number')
+      end
+
+      it '発送までの日数についての情報が"---"であれば出品できない' do
         @product.dispatch_nichiji_id = '1'
         @product.valid?
         expect(@product.errors.full_messages).to include('Dispatch nichiji must be other than 1')
+      end
+
+      it '発送までの日数についての情報が空であれば出品できない' do
+        @product.dispatch_nichiji_id = ''
+        @product.valid?
+        expect(@product.errors.full_messages).to include('Dispatch nichiji is not a number')
       end
 
       it '価格についての情報が空であれば出品できない' do
@@ -66,7 +96,13 @@ describe do
         expect(@product.errors.full_messages).to include('Price is too short (minimum is 3 characters)')
       end
 
-      it '価格の範囲が、¥300~¥9,999,999の間でなければ出品できない' do
+      it '価格が10000000円以上では出品できない' do
+        @product.price = '10000000'
+        @product.valid?
+        expect(@product.errors.full_messages).to include('Price must be less than 10000000')
+      end
+
+      it '価格が299円以下では出品できない' do
         @product.price = '0'
         @product.valid?
         expect(@product.errors.full_messages).to include('Price is too short (minimum is 3 characters)')
