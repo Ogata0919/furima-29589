@@ -103,9 +103,9 @@ describe do
       end
 
       it '価格が299円以下では出品できない' do
-        @product.price = '0'
+        @product.price = '299'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Price is too short (minimum is 3 characters)')
+        expect(@product.errors.full_messages).to include('Price must be greater than 300')
       end
 
       it '販売価格は半角数字でなければ出品できない' do
