@@ -113,6 +113,18 @@ describe do
         @product.valid?
         expect(@product.errors.full_messages).to include('Price is too short (minimum is 3 characters)')
       end
+
+      it '販売価格は半角英数混合では登録できないこと' do
+        @product.price = '100aa'
+        @product.valid?
+        expect(@product.errors.full_messages).to include('Price is not a number')
+      end
+
+      it '販売価格は半角英語だけでは登録できないこと' do
+        @product.price = 'aaa'
+        @product.valid?
+        expect(@product.errors.full_messages).to include('Price is too short (minimum is 3 characters)')
+      end
     end
   end
 end
