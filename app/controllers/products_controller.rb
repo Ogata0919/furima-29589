@@ -35,12 +35,8 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-     if @product.destroy
-        redirect_to root_path
-     else
-        @products = Product.all.order('created_at DESC')
-        render :index
-     end   
+        @item.destroy if current_user.id == @product.user_id
+        redirect_to root_path 
   end
 
   private
