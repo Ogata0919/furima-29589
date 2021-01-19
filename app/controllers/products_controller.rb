@@ -35,8 +35,12 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-     @product.destroy
-     redirect_to root_path
+     if @product.destroy
+        redirect_to root_path
+     else
+        @products = Product.all.order('created_at DESC')
+        render :index
+     end   
   end
 
   private
