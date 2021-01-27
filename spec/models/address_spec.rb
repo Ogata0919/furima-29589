@@ -62,6 +62,12 @@ describe AddressPurchase do
         expect(@address.errors.full_messages).to include("Event region can't be blank")
       end
 
+      it "tokenが空では登録できないこと" do
+        @address.token = nil
+        @address.valid?
+        expect(@address.errors.full_messages).to include("Token can't be blank")
+      end
+
     end  
   end
 end    
