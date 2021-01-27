@@ -30,7 +30,7 @@
 
 ### Association
 - belongs_to : user
-- has_one : purchaser
+- has_one : purchase
 
 ## Address Table
 
@@ -52,7 +52,7 @@
 |Column|Type|Options|
 |------|----|-------|
 |products|references|null: false, foreign_key: true|
-|user|references|null: false, foreign_key: true|
+|users|references|null: false, foreign_key: true|
 
 
 ### Association
