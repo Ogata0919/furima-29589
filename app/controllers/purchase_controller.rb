@@ -1,14 +1,13 @@
 class PurchaseController < ApplicationController
   before_action :authenticate_user!
+  before_action :redirect_to, only: [:index, :create]
+  before_action :set_product, only: [:index, :create]
 
   def index
-    @product = Product.find(params[:product_id])
     @address_purchase = AddressPurchase.new
-    redirect_to root_path if current_user == @product.user || @product.purchase
   end
 
   def create
-    @product = Product.find(params[:product_id])
     @address_purchase = AddressPurchase.new(purchase_params)
     if @address_purchase.valid?
       pay_item
@@ -32,5 +31,13 @@ class PurchaseController < ApplicationController
       card: purchase_params[:token], # カードトークン
       currency: 'jpy'                 # 通貨の種類（日本円）
     )
+  end
+
+  def redirect_to
+    redirect_to root_path if current_user == @product.user || @product.purchase
+  end  
+
+  def set_product
+    @product = Product.find(params[:product_id])
   end
 end

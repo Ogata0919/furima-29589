@@ -7,9 +7,16 @@ class AddressPurchase
     validates :event_region_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :city
     validates :addresses
-    validates :phone_number, format: { with: /\A((0(\d{1}[-(]?\d{4}|\d{2}[-(]?\d{3}|\d{3}[-(]?\d{2}|\d{4}[-(]?\d{1}|[5789]0[-(]?\d{4})[-)]?)|\d{1,4}-?)\d{4}\z/, message: '電話番号を入力してください。' }
+    validates :phone_number
     validates :token
+    validates :product_id
+    validates :user_id
   end
+
+  validates :phone_number, numericality: { message: 'is invalid. Include hyphen(-)' }
+  validates :phone_number, length: { maximum: 11 }
+
+
 
   def save
     @purchase = Purchase.create(product_id: product_id, user_id: user_id)

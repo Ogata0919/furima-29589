@@ -1,7 +1,10 @@
 require 'rails_helper'
 describe AddressPurchase do
   before do
-    @address = FactoryBot.build(:address_purchase)
+    sleep 0.5
+    @user = FactoryBot.create(:user)
+    @product = FactoryBot.create(:product)
+    @address = FactoryBot.build(:address_purchase, user_id: @user.id, product_id: @product.id)
   end
 
   describe '商品購入機能' do
@@ -42,16 +45,16 @@ describe AddressPurchase do
         expect(@address.errors.full_messages).to include("Phone number can't be blank")
       end
 
-      it '電話番号はハイフンは不要あること' do
+      it '電話番号はハイフンは不要であること' do
         @address.phone_number = '000-0000-0000'
         @address.valid?
-        expect(@address.errors.full_messages).to include('Phone number 電話番号を入力してください。')
+        expect(@address.errors.full_messages).to include('Phone number is invalid. Include hyphen(-)')
       end
 
       it '電話番号は11桁以内であること' do
         @address.phone_number = '000000000000'
         @address.valid?
-        expect(@address.errors.full_messages).to include('Phone number 電話番号を入力してください。')
+        expect(@address.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
       end
 
       it '都道府県についての情報が"---"であれば購入できない' do
@@ -65,6 +68,20 @@ describe AddressPurchase do
         @address.valid?
         expect(@address.errors.full_messages).to include("Token can't be blank")
       end
+
+      it 'user_idが空では購入できないこと' do
+        @address.user_id = ''
+        @address.valid?
+        expect(@address.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'product_idが空では購入できないこと' do
+        @address.product_id = ''
+        @address.valid?
+        expect(@address.errors.full_messages).to include("Product can't be blank")
+      end
+
+      
     end
   end
 end
