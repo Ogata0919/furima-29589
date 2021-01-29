@@ -23,20 +23,20 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    return redirect_to root_path if current_user.id !=  @product.user.id       
+    return redirect_to root_path if current_user.id != @product.user.id
   end
 
   def update
     if @product.update(product_params)
-        redirect_to product_path
+      redirect_to product_path
     else
-        render :edit
+      render :edit
     end
   end
 
   def destroy
-        @item.destroy if current_user.id == @product.user_id
-        redirect_to root_path 
+    @item.destroy if current_user.id == @product.user_id
+    redirect_to root_path
   end
 
   private
