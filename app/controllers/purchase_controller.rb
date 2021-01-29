@@ -1,7 +1,7 @@
 class PurchaseController < ApplicationController
   before_action :authenticate_user!
-  before_action :redirect_to, only: [:index, :create]
   before_action :set_product, only: [:index, :create]
+  before_action :move_to_toppage, only: [:index, :create]
 
   def index
     @address_purchase = AddressPurchase.new
@@ -33,7 +33,7 @@ class PurchaseController < ApplicationController
     )
   end
 
-  def redirect_to
+  def move_to_toppage
     redirect_to root_path if current_user == @product.user || @product.purchase
   end  
 
