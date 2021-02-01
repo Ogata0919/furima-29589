@@ -33,97 +33,97 @@ describe do
       it 'カテゴリーの情報が"---"であれば出品できない' do
         @product.category_id = '1'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Category must be other than 1')
+        expect(@product.errors.full_messages).to include('Category を選択してください')
       end
 
       it 'カテゴリーの情報が空であれば出品できない' do
         @product.category_id = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include('Category is not a number')
+        expect(@product.errors.full_messages).to include('Category を選択してください')
       end
 
       it '商品の状態についての情報が"---"であれば出品できない' do
         @product.commodity_id = '1'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Commodity must be other than 1')
+        expect(@product.errors.full_messages).to include('Commodity を選択してください')
       end
 
       it '商品の状態についての情報が空であれば出品できない' do
         @product.commodity_id = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include('Commodity is not a number')
+        expect(@product.errors.full_messages).to include('Commodity を選択してください')
       end
 
       it '配送料の負担についての情報が"---"であれば出品できない' do
         @product.burden_delivery_id = '1'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Burden delivery must be other than 1')
+        expect(@product.errors.full_messages).to include('Burden delivery を選択してください')
       end
 
       it '配送料の負担についての情報が空であれば出品できない' do
         @product.burden_delivery_id = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include('Burden delivery is not a number')
+        expect(@product.errors.full_messages).to include('Burden delivery を選択してください')
       end
 
       it '発送元の地域についての情報が"---"であれば出品できない' do
         @product.event_region_id = '1'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Event region must be other than 1')
+        expect(@product.errors.full_messages).to include('Event region を選択してください')
       end
 
       it '発送元の地域についての情報が空であれば出品できない' do
         @product.event_region_id = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include('Event region is not a number')
+        expect(@product.errors.full_messages).to include('Event region を選択してください')
       end
 
       it '発送までの日数についての情報が"---"であれば出品できない' do
         @product.dispatch_nichiji_id = '1'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Dispatch nichiji must be other than 1')
+        expect(@product.errors.full_messages).to include('Dispatch nichiji を選択してください')
       end
 
       it '発送までの日数についての情報が空であれば出品できない' do
         @product.dispatch_nichiji_id = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include('Dispatch nichiji is not a number')
+        expect(@product.errors.full_messages).to include('Dispatch nichiji を選択してください')
       end
 
       it '価格についての情報が空であれば出品できない' do
         @product.price = ''
         @product.valid?
-        expect(@product.errors.full_messages).to include('Price is too short (minimum is 3 characters)')
+        expect(@product.errors.full_messages).to include("Price can't be blank")
       end
 
       it '価格が10000000円以上では出品できない' do
         @product.price = '10000000'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Price must be less than 10000000')
+        expect(@product.errors.full_messages).to include('Price は99999999円以下で入力してください')
       end
 
       it '価格が299円以下では出品できない' do
         @product.price = '299'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Price must be greater than 300')
+        expect(@product.errors.full_messages).to include('Price は99999999円以下で入力してください')
       end
 
       it '販売価格は半角数字でなければ出品できない' do
         @product.price = '１００'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Price is too short (minimum is 3 characters)')
+        expect(@product.errors.full_messages).to include('Price は300円以上で入力してください')
       end
 
       it '販売価格は半角英数混合では登録できないこと' do
         @product.price = '100aa'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Price is not a number')
+        expect(@product.errors.full_messages).to include('Price は99999999円以下で入力してください')
       end
 
       it '販売価格は半角英語だけでは登録できないこと' do
         @product.price = 'aaa'
         @product.valid?
-        expect(@product.errors.full_messages).to include('Price is too short (minimum is 3 characters)')
+        expect(@product.errors.full_messages).to include('Price は300円以上で入力してください')
       end
     end
   end
