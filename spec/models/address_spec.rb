@@ -1,7 +1,7 @@
 require 'rails_helper'
 describe AddressPurchase do
   before do
-    sleep 0.5
+    sleep 1.0
     @user = FactoryBot.create(:user)
     @product = FactoryBot.create(:product)
     @address = FactoryBot.build(:address_purchase, user_id: @user.id, product_id: @product.id)
@@ -24,7 +24,7 @@ describe AddressPurchase do
       it '郵便番号にはハイフンが必要であること' do
         @address.mail_number = '大淀中1203'
         @address.valid?
-        expect(@address.errors.full_messages).to include('Mail number is invalid. Include hyphen(-)')
+        expect(@address.errors.full_messages).to include('Mail number はハイフンを入力してください')
       end
 
       it '市区町村が空では購入できないこと' do
@@ -48,7 +48,7 @@ describe AddressPurchase do
       it '電話番号はハイフンは不要であること' do
         @address.phone_number = '000-0000-0000'
         @address.valid?
-        expect(@address.errors.full_messages).to include('Phone number is invalid. Include hyphen(-)')
+        expect(@address.errors.full_messages).to include('Phone number にハイフンは入力しないでください')
       end
 
       it '電話番号は11桁以内であること' do
@@ -60,7 +60,7 @@ describe AddressPurchase do
       it '都道府県についての情報が"---"であれば購入できない' do
         @address.event_region_id = '1'
         @address.valid?
-        expect(@address.errors.full_messages).to include("Event region can't be blank")
+        expect(@address.errors.full_messages).to include("Event region を入力してください")
       end
 
       it 'tokenが空では登録できないこと' do

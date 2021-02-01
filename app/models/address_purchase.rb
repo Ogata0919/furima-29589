@@ -3,8 +3,8 @@ class AddressPurchase
   attr_accessor :mail_number, :event_region_id, :city, :addresses, :building, :phone_number, :purchase_id, :product_id, :user_id, :token
 
   with_options presence: true do
-    validates :mail_number, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)' }
-    validates :event_region_id, numericality: { other_than: 1, message: "can't be blank" }
+    validates :mail_number, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'はハイフンを入力してください' }
+    validates :event_region_id, numericality: { other_than: 1, message: "を入力してください" }
     validates :city
     validates :addresses
     validates :phone_number
@@ -13,7 +13,7 @@ class AddressPurchase
     validates :user_id
   end
 
-  validates :phone_number, numericality: { message: 'is invalid. Include hyphen(-)' }
+  validates :phone_number, numericality: { message: 'にハイフンは入力しないでください' }
   validates :phone_number, length: { maximum: 11 }
 
 
